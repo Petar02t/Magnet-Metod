@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="sr-Latn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magnet metod — biraj sa kim ćeš da radiš</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap&subset=latin-ext" rel="stylesheet">
+<style>
+:root{
+    --black:#0C0C0D;--black-2:#000000;--panel:#161618;--panel-2:#1C1C1F;
+    --white:#FFFFFF;--light:#F4F3F1;
+    --red:#c60009;--red-deep:#9C0007;
+    --mut-d:#A6A6AC;      /* muted text on dark */
+    --mut-l:#66666B;      /* muted text on light */
+    --line-d:rgba(255,255,255,.12);
+    --line-l:#E4E3DF;
+    --max:1120px;
+    /* zameni ovu teksturu stvarnom fotografijom: --photo:url('slika.jpg'); */
+    --tex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M64 0H0V64' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E");
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Inter",system-ui,sans-serif;background:var(--black);color:var(--white);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{font-family:"Archivo Black",sans-serif;letter-spacing:-.01em;font-weight:400;line-height:1.08}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 26px;position:relative;z-index:2}
+
+  .eyebrow{font-family:"Archivo Black";font-weight:500;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);display:inline-block}
+  .red{color:var(--red)}
+
+  /* buttons */
+  .btn{font-family:"Archivo Black";font-weight:600;font-size:1rem;letter-spacing:-.01em;text-decoration:none;padding:15px 28px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:transform .2s,background .2s,border-color .2s,color .2s}
+  .btn-primary{background:var(--red);color:#fff}
+  .btn-primary:hover{background:var(--red-deep);transform:translateY(-2px)}
+  .btn-ghost-d{border:1.5px solid rgba(255,255,255,.35);color:#fff;background:transparent}
+  .btn-ghost-d:hover{border-color:#fff;transform:translateY(-2px)}
+  .btn-ghost-l{border:1.5px solid #000;color:#000;background:transparent}
+  .btn-ghost-l:hover{background:#000;color:#fff;transform:translateY(-2px)}
+  .btn-lg{font-size:1.18rem;padding:22px 44px;border-radius:18px}
+
+  /* sections + theming */
+  section{padding:92px 0;position:relative}
+  .dark{background:var(--black);color:var(--white)}
+  .light{background:var(--white);color:var(--black)}
+  .dark h2,.dark h3{color:#fff}
+  .light h2,.light h3{color:var(--black)}
+  /* photo/texture behind + overlay layer */
+  .tex::before{content:"";position:absolute;inset:0;background-image:var(--tex);background-size:cover;background-position:center;z-index:0}
+.hero-bg::before{background-image:url('assets/image-1-687f9bd9.jpg')}
+.rez-bg::before{background-image:url('assets/image-2-687f9bd9.jpg')}
+.cena-bg::before{background-image:url('assets/image-3-687f9bd9.jpg')}
+.faq-bg::before{background-image:url('assets/image-4-687f9bd9.jpg')}
+.ovde-bg::before{background-image:url('assets/image-5-ea281972.jpg')}
+.kako-bg::before{background-image:url('assets/image-6-0b59ca44.jpg')}
+.poziv-bg::before{background-image:url('assets/image-7-dcca03b1.jpg')}
+.forma-bg::before{background-image:url('assets/image-8-f251d8b4.jpg')}
+.founder-bg::before{background-image:url('assets/image-9-b99c675c.jpg')}
+  .tex::after{content:"";position:absolute;inset:0;background-color:rgba(6,6,7,var(--ov,.82));background-image:repeating-linear-gradient(135deg,rgba(198,0,9,.09) 0,rgba(198,0,9,.09) 1px,transparent 1px,transparent 96px),repeating-linear-gradient(45deg,rgba(255,255,255,.06) 0,rgba(255,255,255,.06) 1px,transparent 1px,transparent 96px);z-index:1}
+  .tex.lite::after{background-color:rgba(255,255,255,.90);background-image:repeating-linear-gradient(135deg,rgba(198,0,9,.06) 0,rgba(198,0,9,.06) 1px,transparent 1px,transparent 96px),repeating-linear-gradient(45deg,rgba(0,0,0,.05) 0,rgba(0,0,0,.05) 1px,transparent 1px,transparent 96px)}
+
+  .sec-head{max-width:760px;margin:0 auto 44px;text-align:center}
+  .sec-head h2{font-size:clamp(1.9rem,4.1vw,3rem);text-wrap:balance}
+  .sec-head p{font-size:1.08rem;margin-top:16px;text-wrap:pretty}
+  .dark .sec-head p{color:var(--mut-d)}
+  .light .sec-head p{color:var(--mut-l)}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:60;background:rgba(10,10,11,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-d)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand img{height:30px;display:block}
+  .nav-right{display:flex;align-items:center;gap:10px}
+  .nav-link{font-family:"Archivo Black";font-weight:500;font-size:.9rem;color:#CFCFD3;text-decoration:none;padding:9px 12px;border-radius:8px;transition:color .2s}
+  .nav-link:hover{color:#fff}
+  .nav-cta{font-size:.9rem;padding:11px 18px;border-radius:10px}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;isolation:isolate;background:var(--black)}
+  .hero .glow{position:absolute;right:-10%;top:12%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(198,0,9,.28),transparent 62%);z-index:1;filter:blur(4px)}
+  .hero .field{position:absolute;inset:0;z-index:1;opacity:.5}
+  .hero .field path{fill:none;stroke:#3a3a3e;stroke-width:1;opacity:.7}
+  .hero .field .hot{stroke:var(--red);opacity:.6}
+  .hero .wrap{padding:82px 26px 90px;text-align:center;z-index:2}
+  .hero h1{font-size:clamp(2rem,5vw,3.7rem);margin:22px auto 0;letter-spacing:-.02em;max-width:940px;color:#fff;text-wrap:balance}
+  .hero p.lead{font-size:clamp(1.05rem,1.7vw,1.3rem);color:#D4D4D8;max-width:640px;margin:24px auto 0;font-weight:400;text-wrap:pretty}
+  .hero-actions{display:flex;flex-direction:column;align-items:center;gap:16px;margin:40px 0 0}
+  .hero-actions .btn-ghost-d{padding:13px 28px;border-radius:12px;font-size:.98rem}
+
+  /* VSL */
+  .video{position:relative;max-width:920px;margin:0 auto;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line-d);display:flex;align-items:center;justify-content:center}
+  .video .fieldbg{position:absolute;inset:0;opacity:.4}
+  .video .fieldbg path{fill:none;stroke:#4a4a4e;stroke-width:1}
+  .video .play{width:90px;height:90px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 44px rgba(198,0,9,.5);transition:transform .2s}
+  .video:hover .play{transform:scale(1.06)}
+  .video .play svg{width:34px;height:34px;margin-left:5px}
+.video video{width:100%;height:100%;display:block;object-fit:cover;background:#000}
+  .vsl-after{text-align:center;max-width:640px;margin:34px auto 0}
+  .vsl-after .btn{margin-bottom:16px}
+  .vsl-note{font-size:1.12rem;font-weight:500;color:var(--mut-l)}
+  .vsl-note .red{color:var(--red);font-weight:600}
+
+  /* results / testimonials wall */
+  .tgrid{column-count:3;column-gap:16px}
+  .tcard{break-inside:avoid;margin-bottom:16px;background:var(--panel);border:1px solid var(--line-d);border-radius:14px;padding:18px 18px 16px}
+  .tcard .tco{font-family:"Archivo Black";font-weight:500;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut-d)}
+  .tcard .thl{font-family:"Archivo Black";font-weight:700;font-size:1.42rem;line-height:1.08;letter-spacing:-.01em;color:#fff;margin-top:8px;text-transform:uppercase}
+  .tcard .thl .red{color:var(--red)}
+  .tcard .tsub{color:var(--mut-d);font-size:.86rem;margin-top:8px;line-height:1.4}
+  .tcard img{width:100%;display:block;border-radius:10px;border:1px solid var(--line-d);margin-top:14px}
+  .res-cta{text-align:center;margin-top:42px}
+  @media(max-width:1000px){.tgrid{column-count:2}}
+  @media(max-width:640px){.tgrid{column-count:1;max-width:440px;margin:0 auto}}
+
+  /* timing (light) with dark cards */
+  .timing-lead{text-align:center;max-width:680px;margin:0 auto 42px}
+  .timing-lead .big-msg{font-family:"Archivo Black";font-weight:700;font-size:1.6rem;color:var(--black);letter-spacing:-.01em}
+  .timing-lead p{color:var(--mut-l);font-size:1.06rem;margin-top:12px}
+  .timing{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:840px;margin:0 auto}
+  .tcard{background:var(--black);border-top:4px solid var(--red);border-radius:12px;padding:38px 32px;text-align:center}
+  .tcard .num{font-family:"Archivo Black";font-weight:700;font-size:3.6rem;color:var(--red);line-height:1;letter-spacing:-.03em}
+  .tcard .t{color:#fff;font-weight:600;font-size:1.2rem;margin-top:14px;font-family:"Archivo Black"}
+
+  /* pricing (dark) */
+  .price-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:960px;margin:0 auto}
+  .price-factors{list-style:none}
+  .price-factors li{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line-d);font-size:1.05rem;color:#EDEDEF}
+  .price-factors li:first-child{border-top:1px solid var(--line-d)}
+  .price-factors .n{font-family:"Archivo Black";font-weight:600;color:var(--red);font-size:1rem;flex:none}
+  .price-box{background:var(--panel);border:1px solid var(--line-d);border-radius:14px;padding:38px 34px}
+  .price-box h3{font-size:1.5rem;line-height:1.2;color:#fff}
+  .price-box p{color:var(--mut-d);margin-top:14px;font-size:1rem}
+  .price-box .step{font-family:"Archivo Black";letter-spacing:.06em;text-transform:uppercase;color:var(--red);font-size:.82rem;margin-top:24px;font-weight:600}
+  .price-box .btn{margin-top:10px;width:100%}
+
+  /* form (light section, dark card) */
+  .form-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:52px;align-items:start;margin-top:20px}
+  .form-copy h3{font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.12;color:var(--black)}
+  .form-copy p{color:var(--mut-d);font-size:1.06rem;margin-top:16px}
+  .form-copy .bullets{list-style:none;margin-top:22px}
+  .form-copy .bullets li{display:flex;gap:12px;color:#fff;padding:9px 0;font-size:1rem;font-weight:500}
+  .form-copy .bullets svg{width:18px;height:18px;flex:none;margin-top:4px;stroke:var(--red)}
+  .form-card{background:#17171A;border:1px solid #34343C;border-radius:16px;padding:32px 30px;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+  .form-card label{display:block;font-family:"Archivo Black";font-weight:500;letter-spacing:.02em;font-size:.82rem;color:var(--mut-d);margin:16px 0 6px}
+  .form-card label:first-child{margin-top:0}
+  .form-card input,.form-card textarea{width:100%;font-family:"Inter";font-size:1rem;color:#fff;background:#111113;border:1px solid #2A2A2E;border-radius:8px;padding:12px 14px;transition:border-color .2s}
+  .form-card input::placeholder,.form-card textarea::placeholder{color:#5C5C61}
+  .form-card input:focus,.form-card textarea:focus{outline:none;border-color:var(--red)}
+  .form-card textarea{resize:vertical;min-height:78px}
+  .form-card .btn{margin-top:22px;width:100%;font-size:1.08rem;padding:17px}
+  .form-note{font-family:"Archivo Black";letter-spacing:.03em;font-size:.76rem;color:var(--mut-d);text-align:center;margin-top:14px}
+  .form-ok{display:none;background:#12331C;border:1px solid #2C7A45;color:#8FE0A8;border-radius:8px;padding:16px;margin-top:16px;font-size:.96rem;text-align:center}
+
+  /* faq (dark) */
+  .faq{max-width:820px;margin:0 auto}
+  .faq details{border-bottom:1px solid var(--line-d);padding:6px 0}
+  .faq summary{list-style:none;cursor:pointer;padding:18px 40px 18px 0;font-weight:600;font-size:1.08rem;position:relative;font-family:"Archivo Black";color:#fff}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:6px;top:14px;font-family:"Archivo Black";font-size:1.6rem;color:var(--red);font-weight:400}
+  .faq details[open] summary::after{content:"\2212"}
+  .faq details p{color:var(--mut-d);font-size:1rem;padding:0 40px 20px 0}
+
+  /* founder (light) */
+  .founder{max-width:820px;margin:0 auto;display:grid;grid-template-columns:210px 1fr;gap:40px;align-items:center}
+  .founder .photo{width:210px;height:262px;border-radius:14px;object-fit:cover;object-position:center top;border:1px solid var(--line-dark);display:block}
+  .founder h3{font-size:1.5rem;margin-top:14px;color:#fff}
+  .founder p{color:var(--mut-d);margin-top:12px;font-size:1.02rem}
+  .founder-cta{text-align:center;margin-top:46px}
+  .founder-story{max-width:740px;margin:40px auto 0;padding-top:36px;border-top:1px solid var(--line-d);text-align:center;color:var(--mut-d);font-size:1.05rem;line-height:1.75;text-wrap:pretty}
+
+  footer{background:var(--black-2);color:var(--mut-d);padding:34px 0;border-top:1px solid var(--line-d)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer img{height:26px;display:block}
+  footer .fnote{font-family:"Archivo Black";font-size:.82rem;letter-spacing:.04em}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .draw{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.2s ease forwards}
+  .draw.d2{animation-delay:.2s}.draw.d3{animation-delay:.4s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  @media(max-width:900px){
+    .res-grid{grid-template-columns:1fr 1fr}
+    .price-layout,.form-layout{grid-template-columns:1fr;gap:32px}
+    .founder{grid-template-columns:1fr;text-align:center;justify-items:center}
+  }
+  @media(max-width:560px){
+    section{padding:66px 0}
+    .hero .wrap{padding:60px 22px 68px}
+    .res-grid{grid-template-columns:1fr}
+    .timing{grid-template-columns:1fr}
+    .nav-link{display:none}
+    .btn-lg{font-size:1.05rem;padding:19px 32px}
+    .brand img{height:26px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+    .draw{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  }
+
+
+/* ===== reorg additions ===== */
+/* results subtitle bigger */
+.res-sub{font-size:1.22rem !important;color:#D7DBDE !important;max-width:680px}
+.res-sub .red{color:var(--red)}
+
+/* OVDE SE NALAZITE JER — reasons */
+.reasons{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:960px;margin:0 auto}
+.reason{background:#fff;border:1px solid var(--line-l);border-left:4px solid var(--red);border-radius:12px;padding:24px 26px;display:flex;gap:18px;align-items:flex-start}
+.reason .rn{font-family:"Archivo Black";font-weight:700;font-size:1.7rem;color:var(--red);line-height:1;flex:none}
+.reason p{font-family:"Archivo Black";font-weight:600;font-size:1.04rem;line-height:1.3;color:var(--black);text-transform:uppercase;letter-spacing:.005em}
+.reasons + .res-cta{margin-top:40px}
+
+/* KAKO RADI — gears */
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1000px;margin:44px auto 0}
+.gear-col{text-align:center}
+.gear{width:118px;height:118px;display:block;margin:0 auto;animation:spin 26s linear infinite;transform-origin:60px 60px}
+.gear.rev{animation-direction:reverse}
+.gbody{fill:#ECECEF}
+.gring{fill:#0C0C0D}
+.ghub{fill:var(--red)}
+.glabel{font-family:"Archivo Black";font-weight:700;font-size:1.4rem;letter-spacing:.02em;text-transform:uppercase;margin-top:18px;color:#fff}
+.gdesc{color:var(--mut-d);font-size:.98rem;margin-top:10px;max-width:300px;margin-left:auto;margin-right:auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gears-note{text-align:center;max-width:640px;margin:44px auto 0;font-family:"Archivo Black";font-weight:600;font-size:1.18rem;color:#fff;text-wrap:pretty}
+.gears-note .red{color:var(--red)}
+.gears + .gears-note + .res-cta{margin-top:34px}
+
+/* PRE NEGO ŠTO ZAKAŽEMO POZIV */
+.poziv{max-width:720px;margin:0 auto;text-align:center}
+.poziv .pz-lead{font-family:"Archivo Black";font-weight:700;font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.18;color:#fff}
+.poziv p{color:var(--mut-d);font-size:1.08rem;margin-top:16px}
+.poziv .res-cta{margin-top:36px}
+
+/* wide CTA */
+.btn-wide{max-width:700px;white-space:normal;line-height:1.25;text-align:center}
+
+@media(max-width:760px){
+  .reasons{grid-template-columns:1fr}
+  .gears{grid-template-columns:1fr;gap:34px;max-width:420px}
+}
+@media(prefers-reduced-motion:reduce){ .gear{animation:none} }
+
+/* section 3 header extras */
+.dokazi-big{font-family:"Archivo Black";font-weight:700;font-size:clamp(1.4rem,3vw,2rem);text-transform:uppercase;color:var(--red);margin-top:14px;letter-spacing:.01em;line-height:1.1}
+.res-sub-small{font-size:1rem;color:#AEB8BE;margin-top:12px;max-width:620px;margin-left:auto;margin-right:auto;text-wrap:pretty}
+
+/* ===== round-2 additions ===== */
+/* 3 centered items (OVDE + kvalifikacija) */
+.reasons3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1000px;margin:0 auto;text-align:center}
+.r3 .rn{font-family:"Archivo Black";font-size:2.3rem;color:var(--red);line-height:1;margin-bottom:14px}
+.r3 p{color:#fff;font-size:1.06rem;line-height:1.45;text-wrap:pretty}
+.reasons3 + .res-cta{margin-top:44px}
+.qual-lead{text-align:center;color:#fff;font-family:"Archivo Black";font-size:1.2rem;margin:0 auto 30px;letter-spacing:-.01em}
+
+/* gear red translucent cards */
+.gear-col{text-align:center;display:flex;flex-direction:column;align-items:center}
+.gcard{background:rgba(198,0,9,.10);border:1px solid rgba(198,0,9,.32);border-radius:14px;padding:20px 22px;margin-top:16px;box-shadow:0 0 30px rgba(198,0,9,.08);width:100%;flex:1}
+.gcard p{color:#fff;font-size:.95rem;line-height:1.5}
+
+/* form Ime/Prezime row */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+@media(max-width:760px){ .reasons3{grid-template-columns:1fr;gap:26px} }
+@media(max-width:560px){ .frow{grid-template-columns:1fr} }
+
+/* ===== Thank You page ===== */
+.ty-hero{padding:96px 0 8px;text-align:center}
+.ty-hero h1{font-size:clamp(3.2rem,9vw,5.2rem);color:#fff;line-height:1}
+.ty-sub{color:var(--mut-d);font-size:1.2rem;margin-top:16px}
+.ty-photo{width:150px;height:150px;border-radius:16px;object-fit:cover;object-position:center top;margin:34px auto 0;display:block;border:1px solid var(--line-dark)}
+.ty-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:920px;margin:46px auto 0}
+.tybtn{display:flex;align-items:center;justify-content:center;text-align:center;min-height:88px;padding:20px 22px;border-radius:14px;background:rgba(198,0,9,.10);border:1px solid rgba(198,0,9,.35);color:#fff;text-decoration:none;font-family:"Archivo Black";font-size:1rem;line-height:1.22;transition:transform .2s,background .2s;box-shadow:0 0 30px rgba(198,0,9,.06)}
+.tybtn:hover{background:rgba(198,0,9,.20);transform:translateY(-3px)}
+.vfaq{max-width:820px;margin:0 auto;padding:64px 0;border-top:1px solid var(--line-dark)}
+.vfaq:first-of-type{margin-top:60px}
+.vfaq h2{text-align:center;font-size:clamp(1.6rem,4vw,2.4rem);color:#fff}
+.vplace{max-width:300px;margin:28px auto 0;aspect-ratio:9/16;border-radius:16px;background:#111214;border:1px solid var(--line-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.vplace .pl{width:72px;height:72px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(198,0,9,.4)}
+.vplace .pl svg{width:26px;height:26px;margin-left:4px}
+.vplace span{font-family:"Archivo Black";font-size:.7rem;letter-spacing:.08em;color:var(--mut-d);text-transform:uppercase}
+.vfaq .video{margin-top:26px}
+.video-reel{aspect-ratio:9/16!important;max-width:280px!important;border-radius:16px}
+.insta{text-align:center;margin-top:28px}
+.insta p{color:#fff;font-size:1.06rem;margin-bottom:16px}
+@media(max-width:760px){ .ty-buttons{grid-template-columns:1fr} }
+
+
+/* sticky mobile CTA */
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(12,12,13,.96);backdrop-filter:blur(10px);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);transition:transform .3s ease}
+.sticky-cta.show{transform:translateY(0)}
+.sticky-cta .btn{width:100%;font-size:1rem;padding:16px;border-radius:12px}
+@media(max-width:760px){.sticky-cta{display:block}footer{padding-bottom:calc(34px + 96px + env(safe-area-inset-bottom,0px))}}
+
+/* scroll progress bar */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:var(--red,#c60009);z-index:200;width:0;transition:width .1s linear}
+
+/* animated counter */
+.counter-num{font-family:"Archivo Black","Space Grotesk",sans-serif;font-weight:900;font-size:clamp(2rem,5vw,3.2rem);color:var(--red,#c60009);line-height:1;letter-spacing:-.02em;margin-bottom:4px}
+
+/* social proof strip */
+.proof-strip{display:flex;align-items:center;gap:16px;padding:18px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;margin-top:24px}
+.proof-strip .proof-icon{flex:none;width:42px;height:42px;border-radius:50%;background:var(--red,#c60009);display:flex;align-items:center;justify-content:center}
+.proof-strip .proof-icon svg{width:20px;height:20px;fill:#fff}
+.proof-strip .proof-text{font-size:.92rem;color:#ccc;line-height:1.4}
+.proof-strip .proof-text strong{color:#fff;font-weight:600}
+/* guarantee */
+.guarantee{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-top:14px}
+.guarantee svg{flex:none;width:22px;height:22px;stroke:var(--red,#c60009);fill:none;margin-top:2px}
+.guarantee p{font-size:.9rem;color:#bbb;line-height:1.5}
+.guarantee p strong{color:#fff}
+
+/* exit-intent popup */
+.exit-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+.exit-overlay.show{display:flex}
+.exit-popup{background:#161618;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:40px 32px;max-width:420px;width:90%;text-align:center;position:relative;animation:popIn .3s ease}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.exit-popup .close-x{position:absolute;top:14px;right:14px;background:none;border:none;color:#888;font-size:1.5rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:color .2s}
+.exit-popup .close-x:hover{color:#fff}
+.exit-popup h3{font-family:"Archivo Black","Space Grotesk",sans-serif;font-size:1.5rem;color:#fff;line-height:1.15;margin-bottom:10px}
+.exit-popup p{color:#aaa;font-size:.95rem;margin-bottom:22px}
+.exit-popup input{width:100%;font-family:"Inter",sans-serif;font-size:1rem;color:#fff;background:#111113;border:1px solid #2A2A2E;border-radius:8px;padding:13px 14px;margin-bottom:10px;transition:border-color .2s}
+.exit-popup input::placeholder{color:#5C5C61}
+.exit-popup input:focus{outline:none;border-color:var(--red,#c60009)}
+.exit-popup .btn{width:100%;font-size:1.05rem;padding:16px}
+.exit-popup .exit-note{font-size:.76rem;color:#666;margin-top:10px}
+
+/* thank-you overlay */
+.thankyou-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(12,12,13,.97);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.thankyou-overlay.show{display:block}
+.thankyou-inner{max-width:640px;margin:0 auto;padding:60px 24px 80px;text-align:center}
+.thankyou-inner .check-circle{width:80px;height:80px;border-radius:50%;background:var(--red,#c60009);margin:0 auto 24px;display:flex;align-items:center;justify-content:center}
+.thankyou-inner .check-circle svg{width:40px;height:40px;stroke:#fff;fill:none;stroke-width:3}
+.thankyou-inner h2{font-family:"Archivo Black","Space Grotesk",sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);color:#fff;line-height:1.15;margin-bottom:16px}
+.thankyou-inner .next-step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:24px;margin:24px 0;text-align:left}
+.thankyou-inner .next-step h3{font-family:"Archivo Black","Space Grotesk",sans-serif;font-size:1.1rem;color:var(--red,#c60009);margin-bottom:10px}
+.thankyou-inner .next-step p{color:#ccc;font-size:.95rem;line-height:1.5}
+.thankyou-inner .ig-link{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:600;font-size:1rem;padding:12px 24px;border:1.5px solid rgba(255,255,255,.25);border-radius:12px;margin:16px 0 32px;transition:border-color .2s,transform .2s}
+.thankyou-inner .ig-link:hover{border-color:#fff;transform:translateY(-2px)}
+.thankyou-inner .ig-link svg{width:20px;height:20px;fill:#fff}
+.thankyou-inner .video-section-title{font-family:"Archivo Black","Space Grotesk",sans-serif;font-size:1.2rem;color:#fff;margin:40px 0 8px}
+.thankyou-inner .video-section-sub{color:#888;font-size:.92rem;margin-bottom:24px}
+.thankyou-videos{display:flex;flex-direction:column;gap:32px;text-align:center}
+.thankyou-videos h4{font-family:"Archivo Black","Space Grotesk",sans-serif;color:#fff;font-size:1.05rem;margin-bottom:12px}
+.thankyou-videos .video-reel-wrap{aspect-ratio:9/16;max-width:260px;margin:0 auto;border-radius:14px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.1)}
+.thankyou-videos .video-landscape-wrap{aspect-ratio:16/9;max-width:540px;margin:0 auto;border-radius:14px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.1)}
+.thankyou-videos video{width:100%;height:100%;object-fit:cover;display:block}
+</style>
+</head>
+<body>
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand"><img src="assets/image-1-79d73c8a.png" alt="Magnet metod"></a>
+    <div class="nav-right">
+      <a href="#faq" class="nav-link">Česta pitanja</a>
+      <a href="#analiza" class="btn btn-primary nav-cta">Zakaži analizu</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero tex hero-bg" id="top" style="--ov:.5">
+  <div class="wrap">
+    <h1>POČNI DA BIRAŠ <span style="color:#fff">SA</span> <span class="red">KIM ĆEŠ DA RADIŠ.</span></h1>
+    <p class="lead">Zaboravi preglede, lajkove i ostale prazne priče. Bitni su poslovi, a na kraju <span class="red">novac koji ćeš zaraditi</span>.</p>
+    <div class="hero-actions">
+      <a href="#spreman" class="btn btn-primary btn-lg">Saznaj kako do poslova</a>
+    </div>
+  </div>
+</header>
+
+<!-- 2. OVDE SE NALAZITE JER -->
+<section class="dark tex ovde-bg" id="spreman" style="--ov:.62">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>OVDE SE <span class="red">NALAZITE JER</span></h2></div>
+    <div class="reasons3 reveal">
+      <div class="r3"><div class="rn">01</div><p>Muka vam je čekanja, želite rezultat <span class="red">odmah</span>.</p></div>
+      <div class="r3"><div class="rn">02</div><p>Ne slušaju vam se marketing i prodajni stručnjaci, želite <span class="red">kupce</span>.</p></div>
+      <div class="r3"><div class="rn">03</div><p>Spremni ste da investirate u nešto što stvarno donosi <span class="red">povrat</span>.</p></div>
+    </div>
+    <div class="res-cta reveal"><a href="#rezultati" class="btn btn-primary btn-lg">Evo kako do kupaca</a></div>
+  </div>
+</section>
+
+<!-- 3. DOKAZI / REZULTATI -->
+<section class="dark tex rez-bg" id="rezultati" style="--ov:.62">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Prvo vidite kako je Magnet metod drugima dovodio kupce.</h2>
+      <div class="dokazi-big">Pogledaj dokaze.</div>
+      <p class="res-sub-small">Sve se danas može lažirati. Ali utisci direktnih vlasnika ne mogu.</p>
+    </div>
+    <div class="tgrid reveal">
+      <div class="tcard">
+        <div class="tco">ElanTimHouse</div>
+        <div class="counter-num" data-target="320000" data-suffix="€" data-duration="2000">0€</div>
+        <div class="thl"><span class="red">320.000 eura</span> za 3 meseca</div>
+        <div class="tsub">Cifra označava vrednost prodatih objekata u 90 dana korišćenja Magnet metoda.</div>
+        <img src="assets/image-10-687f9bd9.jpg" alt="Recenzija ElanTimHouse">
+      </div>
+      <div class="tcard">
+        <div class="tco">Projektovanje Dvorišta</div>
+        <div class="counter-num" data-target="200000" data-suffix="€+" data-duration="2200">0€+</div>
+        <div class="thl"><span class="red">200.000 eura +</span> za 13 meseci</div>
+        <div class="tsub">Za godinu dana korišćenja Magnet metoda Božidar je ostvario 200.000+ eura prometa.</div>
+        <img src="assets/image-11-687f9bd9.jpg" alt="Recenzija Projektovanje Dvorišta">
+      </div>
+      <div class="tcard">
+        <div class="tco">Ionyx sigurnosni sistemi</div>
+        <div class="counter-num" data-target="16000" data-suffix="€" data-duration="1500">0€</div>
+        <div class="thl"><span class="red">8 vrata</span> = 16.000 eura</div>
+        <div class="tsub">Osam prodatih vrata već u prvom mesecu saradnje.</div>
+        <img src="assets/image-12-687f9bd9.jpg" alt="Recenzija Ionyx sigurnosni sistemi">
+      </div>
+      <div class="tcard">
+        <div class="tco">WProjects</div>
+        <div class="counter-num" data-target="500000" data-suffix="€+" data-duration="2400">0€+</div>
+        <div class="thl"><span class="red">Preko 500.000 eura +</span> poslovnih prilika za 45 dana</div>
+        <div class="tsub">Izgradili smo brend koji je omogućio da u prvih 45 dana steknemo preko 500.000 eura potencijalnog prometa.</div>
+        <img src="assets/image-13-687f9bd9.jpg" alt="Recenzija WProjects">
+      </div>
+      <div class="tcard">
+        <div class="tco">Mirković Adaptacije Stanova</div>
+        <div class="counter-num" data-target="38" data-suffix=" upita" data-duration="1200">0 upita</div>
+        <div class="thl">30 dana: <span class="red">38 upita</span> za kompletnu adaptaciju</div>
+        <div class="tsub">Rezultati već posle prvog meseca, prve ponude i zatvoreni poslovi.</div>
+        <img src="assets/image-14-687f9bd9.jpg" alt="Recenzija Mirković Adaptacije Stanova">
+      </div>
+    </div>
+    <div class="res-cta reveal"><a href="#kako" class="btn btn-primary btn-lg">Klikni za više informacija</a></div>
+  </div>
+</section>
+
+<!-- 4. KAKO MAGNET METOD DOVODI KUPCE -->
+<section class="dark tex kako-bg" id="kako" style="--ov:.76">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>KAKO MAGNET METOD <span class="red">DOVODI VAMA KUPCE?</span></h2></div>
+    <div class="gears reveal">
+      <div class="gear-col"><svg class="gear" viewBox="0 0 120 120" aria-hidden="true"><path class="gbody" d="M105.0,60.0 L115.3,68.8 L109.9,85.4 L96.4,86.5 L99.6,99.6 L85.4,109.9 L73.9,102.8 L68.8,115.3 L51.2,115.3 L46.1,102.8 L34.6,109.9 L20.4,99.6 L23.6,86.5 L10.1,85.4 L4.7,68.8 L15.0,60.0 L4.7,51.2 L10.1,34.6 L23.6,33.5 L20.4,20.4 L34.6,10.1 L46.1,17.2 L51.2,4.7 L68.8,4.7 L73.9,17.2 L85.4,10.1 L99.6,20.4 L96.4,33.5 L109.9,34.6 L115.3,51.2 Z"/><circle class="gring" cx="60" cy="60" r="16"/><circle class="ghub" cx="60" cy="60" r="7"/></svg><div class="glabel">Pozicija</div>
+        <div class="gcard"><p>Magnet metod pozicionira upravo vašu firmu pri vrhu firmi koje nude proizvod ili uslugu poput vaše, čineći da kupac bira upravo vas i zna zašto će platiti više i izabrati vas, a ne jeftiniju opciju.</p></div>
+      </div>
+      <div class="gear-col"><svg class="gear rev" viewBox="0 0 120 120" aria-hidden="true"><path class="gbody" d="M105.0,60.0 L115.3,68.8 L109.9,85.4 L96.4,86.5 L99.6,99.6 L85.4,109.9 L73.9,102.8 L68.8,115.3 L51.2,115.3 L46.1,102.8 L34.6,109.9 L20.4,99.6 L23.6,86.5 L10.1,85.4 L4.7,68.8 L15.0,60.0 L4.7,51.2 L10.1,34.6 L23.6,33.5 L20.4,20.4 L34.6,10.1 L46.1,17.2 L51.2,4.7 L68.8,4.7 L73.9,17.2 L85.4,10.1 L99.6,20.4 L96.4,33.5 L109.9,34.6 L115.3,51.2 Z"/><circle class="gring" cx="60" cy="60" r="16"/><circle class="ghub" cx="60" cy="60" r="7"/></svg><div class="glabel">Priliv</div>
+        <div class="gcard"><p>Magnet metod vam svakodnevno šalje kvalifikovane upite — osobe koje imaju spreman novac, znaju kada žele da kupe, znaju šta im treba i potrebna im je pouzdana firma kojoj će ostaviti svoj novac.</p></div>
+      </div>
+      <div class="gear-col"><svg class="gear" viewBox="0 0 120 120" aria-hidden="true"><path class="gbody" d="M105.0,60.0 L115.3,68.8 L109.9,85.4 L96.4,86.5 L99.6,99.6 L85.4,109.9 L73.9,102.8 L68.8,115.3 L51.2,115.3 L46.1,102.8 L34.6,109.9 L20.4,99.6 L23.6,86.5 L10.1,85.4 L4.7,68.8 L15.0,60.0 L4.7,51.2 L10.1,34.6 L23.6,33.5 L20.4,20.4 L34.6,10.1 L46.1,17.2 L51.2,4.7 L68.8,4.7 L73.9,17.2 L85.4,10.1 L99.6,20.4 L96.4,33.5 L109.9,34.6 L115.3,51.2 Z"/><circle class="gring" cx="60" cy="60" r="16"/><circle class="ghub" cx="60" cy="60" r="7"/></svg><div class="glabel">Praćenje</div>
+        <div class="gcard"><p>Magnet metod prati vaše kupce koji nakon prodajnog sastanka ne donesu odluku i ne daju jasno „da" ili jasno „ne". Ovim praćenjem ne dozvoljavamo im da lako izađu iz prodajnog procesa. Tu smo uz njih, pružamo im podršku i činimo da vaša firma bude prva pred njima kada odluče kome će ostaviti svoj novac.</p></div>
+      </div>
+    </div>
+    <p class="gears-note reveal">Svaki od ovih zupčanika je bitan. Ako samo jedan fali, sistem ne radi kako treba. <span class="red">Sistem staje.</span></p>
+    <div class="res-cta reveal"><a href="#analiza" class="btn btn-primary btn-lg">Počni sa Magnet Metodom</a></div>
+  </div>
+</section>
+
+<!-- 5+6. KVALIFIKACIJA + FORMA -->
+<section class="dark tex forma-bg" id="analiza" style="--ov:.72">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>Prvo moramo da vidimo da li je vaša firma pogodna za implementaciju Magnet metoda.</h2></div>
+    <p class="qual-lead reveal">Vaša firma je pogodna ako:</p>
+    <div class="reasons3 reveal" style="margin-bottom:56px">
+      <div class="r3"><div class="rn">01</div><p>Imate radnog kapaciteta.</p></div>
+      <div class="r3"><div class="rn">02</div><p>Imate kvalitetnu uslugu ili proizvod.</p></div>
+      <div class="r3"><div class="rn">03</div><p>Prioritet vam je rad na prodaji.</p></div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-bottom:26px"><h2>Zakaži besplatne konsultacije sa Petrom</h2></div>
+    <div class="form-card reveal" style="max-width:640px;margin:0 auto">
+      <div class="frow">
+        <div><label for="f-ime">Ime</label><input id="f-ime" type="text" placeholder="Ime"></div>
+        <div><label for="f-prezime">Prezime</label><input id="f-prezime" type="text" placeholder="Prezime"></div>
+      </div>
+      <label for="f-tel">Broj telefona</label>
+      <input id="f-tel" type="tel" placeholder="06x xxx xxxx">
+      <label for="f-firma">Ime firme</label>
+      <input id="f-firma" type="text" placeholder="Naziv vaše firme">
+      <label for="f-cilj">Šta želite da postignete Magnet metodom?</label>
+      <textarea id="f-cilj" placeholder="Ukratko opišite svoj cilj"></textarea>
+      <label for="f-web">Website firme <span style="color:#666;font-weight:400">(opciono)</span></label>
+      <input id="f-web" type="url" placeholder="www.vašafirma.rs">
+      <button type="button" class="btn btn-primary" onclick="submitLead()">Prijavi se za besplatnu analizu</button>
+      <div class="form-note">Odgovaramo u roku od 24h</div>
+      <!-- social proof -->
+      <div class="proof-strip">
+        <div class="proof-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="proof-text"><strong>47+ firmi</strong> je prošlo kroz Magnet metod. "Za 3 meseca prodali smo koliko za prethodne 2 godine." — <strong>ElanTim</strong></div>
+      </div>
+      <!-- guarantee -->
+      <div class="guarantee">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <p><strong>Bez obaveze.</strong> Analiza je potpuno besplatna. Nema pritiska, nema ugovaranja. Samo konkretan uvid u stanje vaše prodaje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (video odgovori) -->
+<section class="dark tex faq-bg" id="faq" style="--ov:.72">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>Česta pitanja</h2></div>
+    <div class="vfaq reveal" id="faq-rezultati">
+      <h2><span class="red">Kada</span> mogu očekivati prve rezultate?</h2>
+      <div class="video video-reel"><video controls playsinline preload="metadata" poster="assets/image-15-bf3a1d8f.jpg"><source src="assets/video-1-c52e1a55.mp4" type="video/mp4">Vaš pregledač ne podržava video.</video></div>
+    </div>
+    <div class="vfaq reveal" id="faq-cena">
+      <h2><span class="red">Koliko</span> Magnet metod košta?</h2>
+      <div class="video video-reel"><video controls playsinline preload="metadata" poster="assets/image-16-22e91ca8.jpg"><source src="assets/video-2-1a7dd9d4.mp4" type="video/mp4">Vaš pregledač ne podržava video.</video></div>
+    </div>
+    <div class="vfaq reveal" id="faq-petar">
+      <h2><span class="red">Ko</span> je Petar Jeftić?</h2>
+      <div class="video" style="max-width:720px">
+        <video controls playsinline preload="metadata" poster="assets/image-17-3eb7bcc0.jpg"><source src="assets/video-3-77f25de4.mp4" type="video/mp4">Vaš pregledač ne podržava video.</video>
+      </div>
+      <div class="insta">
+        <p>Saznaj više o Petru na njegovom Instagram profilu.</p>
+        <a href="https://www.instagram.com/petarjefticc/" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Otvori Instagram profil</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="dark tex founder-bg" id="o-petru" style="--ov:.64">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:38px"><h2>Ko stoji iza Magnet metoda?</h2></div>
+    <div class="founder reveal">
+      <img class="photo" src="assets/image-18-8e517307.jpg" alt="Petar Jeftić">
+      <div>
+        <h3>Petar Jeftić</h3>
+        <p>Osnivač Magnet metoda i B2B sales i growth konsultant koji pomaže proizvodnim i građevinskim firmama da izgrade sistem za konstantno privlačenje, kvalifikovanje i pretvaranje potencijalnih kupaca u konkretne poslovne prilike.</p>
+        <a href="https://www.instagram.com/petarjefticc/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;margin-top:18px;color:#fff;font-family:Archivo Black,sans-serif;font-size:.95rem;text-decoration:none;border:1.5px solid rgba(255,255,255,.35);padding:10px 18px;border-radius:10px;transition:background .2s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;vertical-align:middle;margin-right:8px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@petarjefticc</a>
+      </div>
+    </div>
+    <p class="founder-story reveal">Petar Jeftić je karijeru započeo u najtežem obliku prodaje, od vrata do vrata, prodajući sopstvene građevinske usluge i tražeći prve klijente bez preporuka i reklama. Iz tog iskustva nastala je građevinska firma koja se bavila uređenjem enterijera i eksterijera, a kroz godine rada razvio je sistem koji spaja prodaju, marketing i dovođenje kupaca. Tako je nastala Magnet metod, pristup koji omogućava građevinskim, proizvodnim i drugim firmama sa skupljim uslugama da redovno dolaze do kvalifikovanih kupaca koji su spremni da plate, umesto da se cenkaju i odugovlače.</p>
+    <div class="founder-cta reveal"><a href="#analiza" class="btn btn-primary btn-lg">Zakaži besplatnu analizu</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/image-2-79d73c8a.png" alt="Magnet metod">
+    <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap"><a href="https://www.instagram.com/petarjefticc/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:#CFCFD3;font-family:Archivo Black,sans-serif;font-size:.9rem;text-decoration:none;transition:color .2s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;vertical-align:middle;margin-right:8px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@petarjefticc</a><div class="fnote">© 2026 · Petar Jeftić</div></div>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <a href="#analiza" class="btn btn-primary">Prijavi se za besplatnu analizu</a>
+</div>
+
+<!-- Exit-intent popup -->
+<div class="exit-overlay" id="exit-overlay">
+  <div class="exit-popup">
+    <button class="close-x" onclick="closeExitPopup()">&times;</button>
+    <h3>Sačekaj — uzmi besplatnu analizu pre nego što odeš</h3>
+    <p>Ostavi samo ime i broj, javićemo se u roku od 24h.</p>
+    <input type="text" id="exit-ime" placeholder="Vaše ime">
+    <input type="tel" id="exit-tel" placeholder="Broj telefona">
+    <button class="btn btn-primary" onclick="submitExitForm()">Prijavi se za besplatnu analizu</button>
+    <div class="exit-note">Potpuno besplatno. Bez obaveze.</div>
+  </div>
+</div>
+
+<!-- Thank-you overlay -->
+<div class="thankyou-overlay" id="thankyou-overlay">
+  <div class="thankyou-inner">
+    <div class="check-circle"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h2>Hvala na prijavi!</h2>
+    <div class="next-step">
+      <h3>Šta sledi?</h3>
+      <p>Petar će vam se javiti u narednih <strong>24 časa</strong> na broj telefona koji ste ostavili kako biste zakazali termin za besplatnu analizu prodaje vaše firme.</p>
+    </div>
+    <a href="https://www.instagram.com/petarjefticc/" target="_blank" rel="noopener" class="ig-link">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Prati Petra na Instagramu
+    </a>
+    <div class="video-section-title">Dok čekaš, saznaj više</div>
+    <div class="video-section-sub">Pogledaj odgovore na najčešća pitanja</div>
+    <div class="thankyou-videos">
+      <div>
+        <h4>Kada dolaze prvi rezultati?</h4>
+        <div class="video-reel-wrap"><video id="ty-vid-1" controls playsinline preload="none"></video></div>
+      </div>
+      <div>
+        <h4>Koliko košta Magnet metod?</h4>
+        <div class="video-reel-wrap"><video id="ty-vid-2" controls playsinline preload="none"></video></div>
+      </div>
+      <div>
+        <h4>Ko je Petar Jeftić?</h4>
+        <div class="video-landscape-wrap"><video id="ty-vid-3" controls playsinline preload="none"></video></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Reveal observer
+  const io = new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  
+  // Auto-pause other videos
+  document.querySelectorAll('video').forEach(v=>v.addEventListener('play',()=>document.querySelectorAll('video').forEach(o=>{if(o!==v)o.pause()})));
+
+  // ========== SCROLL PROGRESS BAR ==========
+  const progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  });
+
+  // ========== STICKY MOBILE CTA ==========
+  const stickyCta = document.getElementById('sticky-cta');
+  const formSection = document.getElementById('analiza');
+  let stickyVisible = false;
+  
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const formTop = formSection ? formSection.offsetTop : 99999;
+    const formBottom = formSection ? formSection.offsetTop + formSection.offsetHeight : 99999;
+    const viewBottom = scrollY + window.innerHeight;
+    
+    // Show after scrolling 400px, hide when form is in view
+    const shouldShow = scrollY > 400 && !(viewBottom > formTop && scrollY < formBottom);
+    
+    if (shouldShow && !stickyVisible) {
+      stickyCta.classList.add('show');
+      stickyVisible = true;
+    } else if (!shouldShow && stickyVisible) {
+      stickyCta.classList.remove('show');
+      stickyVisible = false;
+    }
+  });
+
+  // ========== ANIMATED COUNTERS ==========
+  function animateCounter(el, target, suffix, duration) {
+    let start = 0;
+    const increment = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        start = target;
+        clearInterval(timer);
+      }
+      // Format number with dots as thousand separator
+      const formatted = Math.floor(start).toLocaleString('de-DE');
+      el.textContent = formatted + suffix;
+    }, 16);
+  }
+
+  // Find all counter elements and observe them
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const duration = parseInt(el.dataset.duration) || 2000;
+        animateCounter(el, target, suffix, duration);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, {threshold: 0.3});
+
+  document.querySelectorAll('.counter-num').forEach(el => counterObserver.observe(el));
+
+  // ========== EXIT-INTENT POPUP ==========
+  let exitShown = false;
+  
+  document.addEventListener('mouseleave', (e) => {
+    if (e.clientY < 10 && !exitShown) {
+      showExitPopup();
+    }
+  });
+  
+  // Also detect back button intent (history)
+  window.addEventListener('popstate', (e) => {
+    if (!exitShown) {
+      showExitPopup();
+      history.pushState(null, '', window.location.href);
+    }
+  });
+  // Push initial state for popstate detection
+  history.pushState(null, '', window.location.href);
+  
+  function showExitPopup() {
+    exitShown = true;
+    document.getElementById('exit-overlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeExitPopup() {
+    document.getElementById('exit-overlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  
+  // Close on overlay click (outside popup)
+  document.getElementById('exit-overlay').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeExitPopup();
+  });
+  
+  function submitExitForm() {
+    const ime = document.getElementById('exit-ime').value.trim();
+    const tel = document.getElementById('exit-tel').value.trim();
+    if (!ime || !tel) { alert('Molimo unesite ime i broj telefona.'); return; }
+    // TODO: send to Google Sheet
+    closeExitPopup();
+    showThankYou();
+  }
+
+  // ========== MAIN FORM SUBMIT ==========
+  function showThankYou(){
+    // Copy video sources from FAQ to thank-you page
+    const faqVideos = document.querySelectorAll('.vfaq video');
+    const tyVideos = [document.getElementById('ty-vid-1'), document.getElementById('ty-vid-2'), document.getElementById('ty-vid-3')];
+    faqVideos.forEach((fv, i) => {
+      if (tyVideos[i] && fv.querySelector('source')) {
+        tyVideos[i].src = fv.querySelector('source').src;
+        if (fv.poster) tyVideos[i].poster = fv.poster;
+      }
+    });
+    // Show overlay
+    document.getElementById('thankyou-overlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    // Scroll to top of overlay
+    document.getElementById('thankyou-overlay').scrollTop = 0;
+  }
+
+  function submitLead(){
+    const ime = document.getElementById('f-ime').value.trim();
+    const tel = document.getElementById('f-tel').value.trim();
+    if(!ime || !tel){ alert('Molimo unesite bar ime i broj telefona.'); return; }
+    // TODO: poslati podatke u Google Sheet
+    showThankYou();
+  }
+</script>
+</body>
+</html>
